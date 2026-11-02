@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Catálogo Bueno Tec</title>
+<meta name="description" content="Catálogo de produtos da Bueno Tec – Artigos eletrônicos e gerais. Frete grátis. Peça pelo WhatsApp.">
+<meta name="theme-color" content="#07090c">
+<style>
+:root{--tq:#1fc4cf;--tq2:#0e8f99;--bg:#07090c;--bg2:#0d1319;--card:#10181f;--bd:#1b3a42;--tx:#e8eef0;--mut:#9fb0b5}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:radial-gradient(ellipse at 50% 0%,#12303a 0%,var(--bg) 55%) no-repeat,var(--bg);color:var(--tx);font-family:"Segoe UI",system-ui,Arial,sans-serif;min-height:100vh}
+header{padding:18px 16px 10px;text-align:center}
+header img{height:84px;max-width:80%;object-fit:contain;-webkit-mask-image:radial-gradient(ellipse at center,#000 55%,transparent 98%);mask-image:radial-gradient(ellipse at center,#000 55%,transparent 98%)}
+.faixa{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin:6px 0 14px;font-size:13px;color:var(--mut)}
+.faixa b{color:var(--tq)}
+.barra{position:sticky;top:0;z-index:5;background:linear-gradient(180deg,var(--bg) 70%,transparent);padding:8px 12px 12px}
+.busca{max-width:760px;margin:0 auto 10px;display:flex;gap:8px}
+.busca input,.busca select{background:var(--bg2);border:1.5px solid var(--bd);color:var(--tx);border-radius:12px;font-size:16px;padding:12px 14px;outline:none}
+.busca input{flex:1;min-width:0}
+.busca input:focus,.busca select:focus{border-color:var(--tq)}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;max-width:1100px;margin:0 auto;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1.5px solid var(--bd);background:var(--bg2);color:var(--tx);border-radius:999px;padding:8px 14px;font-size:14px;cursor:pointer;white-space:nowrap}
+.chip.on{background:linear-gradient(135deg,var(--tq),var(--tq2));color:#031317;border-color:transparent;font-weight:800}
+main{max-width:1100px;margin:0 auto;padding:6px 12px 30px}
+.cont{color:var(--mut);font-size:13px;margin:4px 4px 10px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr);gap:16px}}
+@media(min-width:960px){.grid{grid-template-columns:repeat(4,1fr)}}
+.card{background:linear-gradient(180deg,#121b22,#0b1015);border:1.5px solid var(--bd);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.card .ft{aspect-ratio:1/1;background:#fff;display:block}
+.card .ft img{width:100%;height:100%;object-fit:cover;display:block}
+.card .in{padding:10px 10px 12px;display:flex;flex-direction:column;gap:8px;flex:1}
+.cat{font-size:11px;color:var(--tq);letter-spacing:.5px;text-transform:uppercase}
+.nome{font-size:14px;line-height:1.25;font-weight:600;min-height:2.5em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.preco{margin-top:auto;font-weight:900;color:var(--tq);font-size:24px}
+.preco small{font-size:14px;font-weight:700;margin-right:3px;color:var(--tx)}
+.btn{display:block;text-align:center;text-decoration:none;background:linear-gradient(135deg,var(--tq),var(--tq2));color:#031317;font-weight:900;border-radius:12px;padding:11px 8px;font-size:14px}
+.btn:active{transform:scale(.98)}
+.vazio{text-align:center;color:var(--mut);padding:40px 10px}
+footer{max-width:760px;margin:0 auto;padding:10px 16px 40px;text-align:center;color:var(--mut);font-size:12.5px;line-height:1.6}
+footer b{color:var(--tx)}
+.zap{position:fixed;right:14px;bottom:14px;z-index:6;background:linear-gradient(135deg,var(--tq),var(--tq2));color:#031317;font-weight:900;text-decoration:none;border-radius:999px;padding:13px 18px;font-size:14px;box-shadow:0 6px 20px rgba(31,196,207,.4)}
+</style>
+</head>
+<body>
+<header>
+  <img src="logo.png" alt="Bueno Tec – Artigos eletrônicos e gerais">
+  <div class="faixa"><span>🚚 <b>Frete grátis</b></span><span>💠 Pix e dinheiro à vista</span><span>💳 Débito e crédito até 12x</span></div>
+</header>
+<div class="barra">
+  <div class="busca">
+    <input id="q" type="search" placeholder="Pesquisar produto…" autocomplete="off">
+    <select id="ord" aria-label="Ordenar"><option value="">Ordenar</option><option value="asc">Menor preço</option><option value="desc">Maior preço</option></select>
+  </div>
+  <div class="cats" id="cats"></div>
+</div>
+<main>
+  <div class="cont" id="cont"></div>
+  <div class="grid" id="grid"></div>
+  <div class="vazio" id="vazio" hidden>Nenhum produto encontrado. Não achou o que procura? Chame no WhatsApp que a gente consegue pra você! 😉</div>
+</main>
+<footer>
+  <p><b>Preços sujeitos a alteração</b> sem aviso prévio. Confirme o valor e a disponibilidade pelo WhatsApp antes de fechar o pedido.</p>
+  <p>Catálogo atualizado em <b id="atual"></b> · Novos produtos toda semana.</p>
+  <p>Bueno Tec – Artigos eletrônicos e gerais · WhatsApp (45) 99807-6217</p>
+</footer>
+<a class="zap" id="zap" href="#" target="_blank" rel="noopener">💬 Falar no WhatsApp</a>
+<script src="produtos.js"></script>
+<script>
+const WA="5545998076217";
+const $=id=>document.getElementById(id);
+const brl=n=>n.toLocaleString("pt-BR",{minimumFractionDigits:2});
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+let cat="Todos";
+$("atual").textContent=ATUALIZADO;
+$("zap").href="https://wa.me/"+WA+"?text="+encodeURIComponent("Olá! Vim pelo catálogo da Bueno Tec e queria uma ajuda.");
+const cats=["Todos",...[...new Set(PRODUTOS.map(p=>p.cat))]];
+$("cats").innerHTML=cats.map(c=>`<button class="chip${c==="Todos"?" on":""}" data-c="${c}">${c}</button>`).join("");
+$("cats").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;cat=b.dataset.c;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===b));render()};
+$("q").oninput=render;$("ord").onchange=render;
+function render(){
+  const q=norm($("q").value.trim());
+  let l=PRODUTOS.filter(p=>(cat==="Todos"||p.cat===cat)&&(!q||norm(p.nome+" "+p.cat).includes(q)));
+  const o=$("ord").value;if(o)l=[...l].sort((a,b)=>o==="asc"?a.preco-b.preco:b.preco-a.preco);
+  $("cont").textContent=l.length+(l.length===1?" produto":" produtos");
+  $("vazio").hidden=l.length>0;
+  $("grid").innerHTML=l.map(p=>{
+    const msg=`Olá! Tenho interesse neste produto do catálogo:\n*${p.nome}* (cód. ${p.cod}) – R$ ${brl(p.preco)}`;
+    return `<article class="card"><div class="ft"><img loading="lazy" src="${p.img}" alt="${p.nome}"></div><div class="in"><div class="cat">${p.cat}</div><div class="nome">${p.nome}</div><div class="preco"><small>R$</small>${brl(p.preco)}</div><a class="btn" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}">Pedir no WhatsApp</a></div></article>`}).join("");
+}
+render();
+</script>
+</body>
+</html>
