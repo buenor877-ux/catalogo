@@ -7,91 +7,269 @@
 <meta name="description" content="Catálogo de produtos da Bueno Tec – Artigos eletrônicos e gerais. Frete grátis. Peça pelo WhatsApp.">
 <meta name="theme-color" content="#07090c">
 <style>
-:root{--tq:#1fc4cf;--tq2:#0e8f99;--bg:#07090c;--bg2:#0d1319;--card:#10181f;--bd:#1b3a42;--tx:#e8eef0;--mut:#9fb0b5}
+:root{--tq:#1fc4cf;--tq2:#0e8f99;--bg:#07090c;--bg2:#0d1319;--card:#10181f;--bd:#1b3a42;--tx:#e8eef0;--mut:#9fb0b5;--ink:#031317}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:radial-gradient(ellipse at 50% 0%,#12303a 0%,var(--bg) 55%) no-repeat,var(--bg);color:var(--tx);font-family:"Segoe UI",system-ui,Arial,sans-serif;min-height:100vh}
-header{padding:18px 16px 10px;text-align:center}
-header img{height:84px;max-width:80%;object-fit:contain;-webkit-mask-image:radial-gradient(ellipse at center,#000 55%,transparent 98%);mask-image:radial-gradient(ellipse at center,#000 55%,transparent 98%)}
-.faixa{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin:6px 0 14px;font-size:13px;color:var(--mut)}
+body.trava{overflow:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--tq);outline-offset:2px}
+header{padding:20px 16px 8px;text-align:center}
+header img{width:min(360px,82%);height:auto;display:block;margin:0 auto 12px}
+.faixa{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin:6px 0 10px;font-size:13px;color:var(--mut)}
 .faixa b{color:var(--tq)}
-.barra{position:sticky;top:0;z-index:5;background:linear-gradient(180deg,var(--bg) 70%,transparent);padding:8px 12px 12px}
+.barra{position:sticky;top:0;z-index:5;background:linear-gradient(180deg,var(--bg) 82%,transparent);padding:8px 12px 12px}
 .busca{max-width:760px;margin:0 auto 10px;display:flex;gap:8px}
-.busca input,.busca select{background:var(--bg2);border:1.5px solid var(--bd);color:var(--tx);border-radius:12px;font-size:16px;padding:12px 14px;outline:none}
-.busca input{flex:1;min-width:0}
+.campo{position:relative;flex:1;min-width:0}
+.busca input,.busca select{background:var(--bg2);border:1.5px solid var(--bd);color:var(--tx);border-radius:12px;font-size:16px;padding:12px 14px;outline:none;width:100%}
+.busca input{padding-right:40px}
+.busca input::-webkit-search-cancel-button{display:none}
+.busca select{width:auto;max-width:42%}
 .busca input:focus,.busca select:focus{border-color:var(--tq)}
-.cats{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;max-width:1100px;margin:0 auto;scrollbar-width:none}
-.cats::-webkit-scrollbar{display:none}
-.chip{flex:none;border:1.5px solid var(--bd);background:var(--bg2);color:var(--tx);border-radius:999px;padding:8px 14px;font-size:14px;cursor:pointer;white-space:nowrap}
-.chip.on{background:linear-gradient(135deg,var(--tq),var(--tq2));color:#031317;border-color:transparent;font-weight:800}
+.limpa{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--mut);font-size:18px;width:32px;height:32px}
+.linha{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;max-width:1100px;margin:0 auto;scrollbar-width:none}
+.linha::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1.5px solid var(--bd);background:var(--bg2);color:var(--tx);border-radius:999px;padding:8px 14px;font-size:14px;white-space:nowrap}
+.chip small{color:var(--mut);font-size:12px;margin-left:2px}
+.chip.on{background:linear-gradient(135deg,var(--tq),var(--tq2));color:var(--ink);border-color:transparent;font-weight:800}
+.chip.on small{color:var(--ink)}
+.chip.mini{padding:6px 12px;font-size:13px}
 main{max-width:1100px;margin:0 auto;padding:6px 12px 30px}
-.cont{color:var(--mut);font-size:13px;margin:4px 4px 10px}
+.topo{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:4px 4px 10px;min-height:28px}
+.cont{color:var(--mut);font-size:13px}
+.zerar{background:none;border:0;color:var(--tq);font-size:13px;font-weight:700;padding:4px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 @media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr);gap:16px}}
 @media(min-width:960px){.grid{grid-template-columns:repeat(4,1fr)}}
-.card{background:linear-gradient(180deg,#121b22,#0b1015);border:1.5px solid var(--bd);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
-.card .ft{aspect-ratio:1/1;background:#fff;display:block}
-.card .ft img{width:100%;height:100%;object-fit:cover;display:block}
-.card .in{padding:10px 10px 12px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card{position:relative;background:linear-gradient(180deg,#121b22,#0b1015);border:1.5px solid var(--bd);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s,transform .15s}
+@media(hover:hover){.card:hover{border-color:var(--tq);transform:translateY(-2px)}}
+.abre{background:none;border:0;text-align:left;display:flex;flex-direction:column;flex:1;width:100%}
+.ft{aspect-ratio:1/1;background:#fff;display:block;width:100%}
+.ft img{width:100%;height:100%;object-fit:contain;display:block}
+.in{padding:10px 10px 4px;display:flex;flex-direction:column;gap:6px;flex:1;width:100%}
 .cat{font-size:11px;color:var(--tq);letter-spacing:.5px;text-transform:uppercase}
 .nome{font-size:14px;line-height:1.25;font-weight:600;min-height:2.5em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.preco{margin-top:auto;font-weight:900;color:var(--tq);font-size:24px}
+.preco{margin-top:auto;font-weight:900;color:var(--tq);font-size:23px}
 .preco small{font-size:14px;font-weight:700;margin-right:3px;color:var(--tx)}
-.btn{display:block;text-align:center;text-decoration:none;background:linear-gradient(135deg,var(--tq),var(--tq2));color:#031317;font-weight:900;border-radius:12px;padding:11px 8px;font-size:14px}
+.acoes{padding:6px 10px 12px}
+.btn{display:block;width:100%;text-align:center;text-decoration:none;background:linear-gradient(135deg,var(--tq),var(--tq2));color:var(--ink);font-weight:900;border:0;border-radius:12px;padding:11px 8px;font-size:14px}
 .btn:active{transform:scale(.98)}
-.vazio{text-align:center;color:var(--mut);padding:40px 10px}
-footer{max-width:760px;margin:0 auto;padding:10px 16px 40px;text-align:center;color:var(--mut);font-size:12.5px;line-height:1.6}
+.btn.sec{background:var(--bg2);color:var(--tx);border:1.5px solid var(--bd)}
+.btn.tem{background:#123b40;color:var(--tq);border:1.5px solid var(--tq)}
+.selo{position:absolute;left:8px;top:8px;background:var(--tq);color:var(--ink);font-size:11px;font-weight:900;border-radius:999px;padding:3px 9px;z-index:1}
+.fav{position:absolute;right:8px;top:8px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(7,9,12,.72);color:#fff;font-size:17px;line-height:1;z-index:1}
+.fav.on{color:#ff5d73}
+.mais{height:1px}
+.vazio{text-align:center;color:var(--mut);padding:40px 10px;line-height:1.5}
+.vazio a{color:var(--tq);font-weight:700}
+footer{max-width:760px;margin:0 auto;padding:10px 16px 110px;text-align:center;color:var(--mut);font-size:12.5px;line-height:1.6}
 footer b{color:var(--tx)}
-.zap{position:fixed;right:14px;bottom:14px;z-index:6;background:linear-gradient(135deg,var(--tq),var(--tq2));color:#031317;font-weight:900;text-decoration:none;border-radius:999px;padding:13px 18px;font-size:14px;box-shadow:0 6px 20px rgba(31,196,207,.4)}
+.flut{position:fixed;right:14px;bottom:14px;z-index:6;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.flut a,.flut button{background:linear-gradient(135deg,var(--tq),var(--tq2));color:var(--ink);font-weight:900;text-decoration:none;border:0;border-radius:999px;padding:13px 18px;font-size:14px;box-shadow:0 6px 20px rgba(31,196,207,.4)}
+.flut .sobe{background:var(--bg2);color:var(--tx);border:1.5px solid var(--bd);box-shadow:none;width:44px;height:44px;padding:0;font-size:18px}
+@media(max-width:639px){.flut a{font-size:0;padding:11px 13px}.flut a::before{content:"💬";font-size:20px}.flut button#abrePed{padding:11px 14px;font-size:13px}.busca select{max-width:38%;padding:12px 8px;font-size:15px}}
+.fundo{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.72);display:flex;align-items:flex-end;justify-content:center}
+.fundo[hidden]{display:none}
+.folha{background:var(--bg2);border:1.5px solid var(--bd);border-bottom:0;border-radius:20px 20px 0 0;width:100%;max-width:880px;max-height:92vh;overflow:auto;position:relative;animation:sobe .2s ease-out}
+@keyframes sobe{from{transform:translateY(24px)}to{transform:none}}
+@media(prefers-reduced-motion:reduce){.folha{animation:none}html{scroll-behavior:auto}.card{transition:none}}
+@media(min-width:760px){.fundo{align-items:center}.folha{border-bottom:1.5px solid var(--bd);border-radius:20px}}
+.fecha{position:sticky;top:10px;float:right;margin:10px 10px 0 0;width:38px;height:38px;border-radius:50%;border:0;background:rgba(7,9,12,.8);color:#fff;font-size:18px;z-index:2}
+.det{display:grid;grid-template-columns:1fr}
+@media(min-width:760px){.det{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}}
+.det .foto{background:#fff;aspect-ratio:1/1}
+.det .foto img{width:100%;height:100%;object-fit:contain;display:block}
+.det .txt{padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.det h2{font-size:19px;line-height:1.25}
+.det .cod{color:var(--mut);font-size:12.5px}
+.det .preco{margin:0;font-size:30px}
+.det p{color:var(--mut);font-size:14.5px;line-height:1.45}
+.ficha{width:100%;border-collapse:collapse;font-size:13.5px}
+.ficha th,.ficha td{text-align:left;vertical-align:top;padding:7px 6px;border-top:1px solid var(--bd);overflow-wrap:anywhere}
+.ficha th{color:var(--mut);font-weight:600;width:42%}
+.tit{font-size:14px;font-weight:800;margin-top:4px}
+.dois{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.aviso{font-size:12.5px;color:var(--mut);line-height:1.4}
+.rel{padding:4px 16px 18px;clear:both}
+.rel .linha{padding-top:8px}
+.rel button{flex:none;width:128px;background:var(--card);border:1.5px solid var(--bd);border-radius:12px;overflow:hidden;text-align:left}
+.rel img{width:100%;aspect-ratio:1/1;object-fit:contain;background:#fff;display:block}
+.rel span{display:block;padding:6px 8px 0;font-size:12px;line-height:1.2;height:3.1em;overflow:hidden}
+.rel b{display:block;padding:2px 8px 8px;color:var(--tq);font-size:14px}
+.ped{padding:16px}
+.ped h2{font-size:19px;margin-bottom:10px;padding-right:40px}
+.item{display:grid;grid-template-columns:56px 1fr auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--bd)}
+.item img{width:56px;height:56px;object-fit:contain;background:#fff;border-radius:8px}
+.item .n{font-size:13.5px;line-height:1.25}
+.item small{color:var(--tq);font-weight:800;font-size:13px}
+.qt{display:flex;align-items:center;gap:6px}
+.qt button{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--bd);background:var(--card)}
+.total{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-top:1px solid var(--bd);font-weight:800}
+.total b{color:var(--tq);font-size:24px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#123b40;color:var(--tx);border:1.5px solid var(--tq);border-radius:12px;padding:10px 14px;font-size:14px;z-index:30;max-width:90vw}
 </style>
 </head>
 <body>
 <header>
-  <img src="logo.png" alt="Bueno Tec – Artigos eletrônicos e gerais">
+  <img src="logo.png" width="900" height="289" alt="Bueno Tec – Artigos eletrônicos e gerais">
   <div class="faixa"><span>🚚 <b>Frete grátis</b></span><span>💠 Pix e dinheiro à vista</span><span>💳 Débito e crédito até 12x</span></div>
 </header>
 <div class="barra">
   <div class="busca">
-    <input id="q" type="search" placeholder="Pesquisar produto…" autocomplete="off">
-    <select id="ord" aria-label="Ordenar"><option value="">Ordenar</option><option value="asc">Menor preço</option><option value="desc">Maior preço</option></select>
+    <div class="campo">
+      <input id="q" type="search" placeholder="Buscar produto…" autocomplete="off" aria-label="Pesquisar produto">
+      <button class="limpa" id="limpa" type="button" aria-label="Limpar busca" hidden>✕</button>
+    </div>
+    <select id="ord" aria-label="Ordenar produtos">
+      <option value="">Destaques</option>
+      <option value="novo">Novidades</option>
+      <option value="asc">Menor preço</option>
+      <option value="desc">Maior preço</option>
+      <option value="az">Nome: A a Z</option>
+      <option value="za">Nome: Z a A</option>
+      <option value="cat">Por categoria</option>
+    </select>
   </div>
-  <div class="cats" id="cats"></div>
+  <div class="linha" id="cats"></div>
+  <div class="linha" id="faixas"></div>
 </div>
 <main>
-  <div class="cont" id="cont"></div>
+  <div class="topo"><div class="cont" id="cont" aria-live="polite"></div><button class="zerar" id="zerar" type="button" hidden>Limpar filtros</button></div>
   <div class="grid" id="grid"></div>
-  <div class="vazio" id="vazio" hidden>Nenhum produto encontrado. Não achou o que procura? Chame no WhatsApp que a gente consegue pra você! 😉</div>
+  <div class="mais" id="mais"></div>
+  <div class="vazio" id="vazio" hidden></div>
 </main>
 <footer>
   <p><b>Preços sujeitos a alteração</b> sem aviso prévio. Confirme o valor e a disponibilidade pelo WhatsApp antes de fechar o pedido.</p>
   <p>Catálogo atualizado em <b id="atual"></b> · Novos produtos toda semana.</p>
   <p>Bueno Tec – Artigos eletrônicos e gerais · WhatsApp (45) 99807-6217</p>
 </footer>
-<a class="zap" id="zap" href="#" target="_blank" rel="noopener">💬 Falar no WhatsApp</a>
+<div class="flut">
+  <button class="sobe" id="sobe" type="button" aria-label="Voltar ao topo" hidden>↑</button>
+  <button id="abrePed" type="button" hidden></button>
+  <a id="zap" href="#" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">💬 Falar no WhatsApp</a>
+</div>
+<div class="fundo" id="fundo" hidden><div class="folha" id="folha" role="dialog" aria-modal="true" aria-label="Detalhes" tabindex="-1"></div></div>
 <script src="produtos.js"></script>
 <script>
-const WA="5545998076217";
+const WA="5545998076217",LOTE=24;
 const $=id=>document.getElementById(id);
-const brl=n=>n.toLocaleString("pt-BR",{minimumFractionDigits:2});
+const brl=n=>n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
 const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
-let cat="Todos";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ler=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
+const grava=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+const FAIXAS=[["Até R$ 50",0,50],["R$ 50 a 100",50,100],["R$ 100 a 200",100,200],["R$ 200 a 400",200,400],["Acima de R$ 400",400,1e9]];
+const P=PRODUTOS.map((p,i)=>({...p,i,busca:norm([p.nome,p.cat,p.cod,p.desc||"",...(p.specs||[]).flat()].join(" "))}));
+const porCod=Object.fromEntries(P.map(p=>[p.cod,p]));
+let cat="Todos",faixa=-1,soFav=false,soNovo=false,lista=[],vistos=0;
+let favs=new Set(ler("bt_favs",[]).filter(c=>porCod[c]));
+let ped=Object.fromEntries(Object.entries(ler("bt_pedido",{})).filter(([c])=>porCod[c]));
 $("atual").textContent=ATUALIZADO;
 $("zap").href="https://wa.me/"+WA+"?text="+encodeURIComponent("Olá! Vim pelo catálogo da Bueno Tec e queria uma ajuda.");
-const cats=["Todos",...[...new Set(PRODUTOS.map(p=>p.cat))]];
-$("cats").innerHTML=cats.map(c=>`<button class="chip${c==="Todos"?" on":""}" data-c="${c}">${c}</button>`).join("");
-$("cats").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;cat=b.dataset.c;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===b));render()};
-$("q").oninput=render;$("ord").onchange=render;
-function render(){
-  const q=norm($("q").value.trim());
-  let l=PRODUTOS.filter(p=>(cat==="Todos"||p.cat===cat)&&(!q||norm(p.nome+" "+p.cat).includes(q)));
-  const o=$("ord").value;if(o)l=[...l].sort((a,b)=>o==="asc"?a.preco-b.preco:b.preco-a.preco);
-  $("cont").textContent=l.length+(l.length===1?" produto":" produtos");
-  $("vazio").hidden=l.length>0;
-  $("grid").innerHTML=l.map(p=>{
-    const msg=`Olá! Tenho interesse neste produto do catálogo:\n*${p.nome}* (cód. ${p.cod}) – R$ ${brl(p.preco)}`;
-    return `<article class="card"><div class="ft"><img loading="lazy" src="${p.img}" alt="${p.nome}"></div><div class="in"><div class="cat">${p.cat}</div><div class="nome">${p.nome}</div><div class="preco"><small>R$</small>${brl(p.preco)}</div><a class="btn" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}">Pedir no WhatsApp</a></div></article>`}).join("");
+
+function chips(){
+  const n={};P.forEach(p=>n[p.cat]=(n[p.cat]||0)+1);
+  $("cats").innerHTML=["Todos",...Object.keys(n)].map(c=>`<button class="chip${c===cat?" on":""}" data-c="${esc(c)}" type="button">${esc(c)} <small>${c==="Todos"?P.length:n[c]}</small></button>`).join("");
+  const nn=P.filter(p=>p.novo).length;
+  $("faixas").innerHTML=(nn?`<button class="chip mini${soNovo?" on":""}" data-e="novo" type="button">✨ Novidades</button>`:"")+`<button class="chip mini${soFav?" on":""}" data-e="fav" type="button">♥ Favoritos <small>${favs.size}</small></button>`+FAIXAS.map((f,i)=>`<button class="chip mini${i===faixa?" on":""}" data-f="${i}" type="button">${f[0]}</button>`).join("");
 }
-render();
+function filtra(){
+  const t=norm($("q").value.trim()).split(/\s+/).filter(Boolean),f=FAIXAS[faixa];
+  let l=P.filter(p=>(cat==="Todos"||p.cat===cat)&&(!soFav||favs.has(p.cod))&&(!soNovo||p.novo)&&(!f||(p.preco>=f[1]&&p.preco<f[2]))&&t.every(w=>p.busca.includes(w)));
+  const o=$("ord").value,nome=(a,b)=>a.nome.localeCompare(b.nome,"pt-BR");
+  const s={asc:(a,b)=>a.preco-b.preco,desc:(a,b)=>b.preco-a.preco,az:nome,za:(a,b)=>nome(b,a),novo:(a,b)=>b.i-a.i,cat:(a,b)=>a.cat.localeCompare(b.cat,"pt-BR")||nome(a,b)}[o];
+  return s?[...l].sort(s):l;
+}
+function cartao(p){
+  const tem=ped[p.cod];
+  return `<article class="card">${p.novo?'<span class="selo">Novo</span>':""}<button class="fav${favs.has(p.cod)?" on":""}" data-fav="${p.cod}" type="button" aria-label="Favoritar ${esc(p.nome)}" aria-pressed="${favs.has(p.cod)}">${favs.has(p.cod)?"♥":"♡"}</button><button class="abre" data-p="${p.cod}" type="button"><span class="ft"><img loading="lazy" decoding="async" src="${p.img}" alt="${esc(p.nome)}"></span><span class="in"><span class="cat">${esc(p.cat)}</span><span class="nome">${esc(p.nome)}</span><span class="preco"><small>R$</small>${brl(p.preco)}</span></span></button><div class="acoes"><button class="btn${tem?" tem":""}" data-add="${p.cod}" type="button">${tem?`✓ No pedido (${tem})`:"+ Adicionar"}</button></div></article>`;
+}
+function mais(){
+  if(vistos>=lista.length)return;
+  $("grid").insertAdjacentHTML("beforeend",lista.slice(vistos,vistos+LOTE).map(cartao).join(""));
+  vistos+=LOTE;
+}
+function render(){
+  lista=filtra();vistos=0;$("grid").innerHTML="";mais();
+  $("cont").textContent=lista.length+(lista.length===1?" produto":" produtos");
+  $("limpa").hidden=!$("q").value;
+  $("zerar").hidden=!(cat!=="Todos"||faixa>=0||soFav||soNovo||$("q").value);
+  const v=$("vazio");v.hidden=lista.length>0;
+  if(!lista.length){const q=$("q").value.trim(),m=q?`Olá! Procurei "${q}" no catálogo e não encontrei. Vocês conseguem?`:"Olá! Não encontrei o que procuro no catálogo. Podem me ajudar?";
+    v.innerHTML=soFav&&!favs.size?"Você ainda não favoritou nenhum produto. Toque no ♡ para guardar os que gostar.":`Nenhum produto encontrado. <a target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(m)}">Chame no WhatsApp</a> que a gente tenta conseguir para você! 😉`}
+}
+function mudou(){chips();render()}
+function zapItem(p){return `https://wa.me/${WA}?text=${encodeURIComponent(`Olá! Tenho interesse neste produto do catálogo:\n*${p.nome}* (cód. ${p.cod}) – R$ ${brl(p.preco)}`)}`}
+function aviso(t){document.querySelector(".toast")?.remove();const d=document.createElement("div");d.className="toast";d.setAttribute("role","status");d.textContent=t;document.body.append(d);setTimeout(()=>d.remove(),2200)}
+function resumo(){
+  const n=Object.values(ped).reduce((a,b)=>a+b,0),b=$("abrePed");
+  b.hidden=!n;b.textContent=`🛒 Meu pedido (${n})`;grava("bt_pedido",ped);
+}
+function botoes(cod){
+  document.querySelectorAll(`[data-add="${cod}"]`).forEach(b=>{const q=ped[cod];b.classList.toggle("tem",!!q);b.textContent=q?`✓ No pedido (${q})`:"+ Adicionar"});
+}
+function adiciona(cod){ped[cod]=(ped[cod]||0)+1;resumo();botoes(cod);aviso("Adicionado ao pedido")}
+function favorita(cod){
+  favs.has(cod)?favs.delete(cod):favs.add(cod);grava("bt_favs",[...favs]);
+  document.querySelectorAll(`[data-fav="${cod}"]`).forEach(b=>{const o=favs.has(cod);b.classList.toggle("on",o);b.textContent=o?"♥":"♡";b.setAttribute("aria-pressed",o)});
+  chips();if(soFav)render();
+}
+let origem=null;
+function abre(html,rotulo){
+  if($("fundo").hidden)origem=document.activeElement;
+  const f=$("folha");f.innerHTML=html;f.setAttribute("aria-label",rotulo);f.scrollTop=0;$("fundo").hidden=false;document.body.classList.add("trava");f.focus();
+}
+function fecha(){
+  $("fundo").hidden=true;document.body.classList.remove("trava");
+  if(location.hash)history.replaceState(null,"",location.pathname+location.search);
+  origem?.focus?.();
+}
+function detalhe(cod){
+  const p=porCod[cod];if(!p)return;
+  const sp=p.specs||[];
+  const rel=P.filter(x=>x.cat===p.cat&&x.cod!==cod).sort((a,b)=>Math.abs(a.preco-p.preco)-Math.abs(b.preco-p.preco)).slice(0,8);
+  abre(`<button class="fecha" data-fecha type="button" aria-label="Fechar">✕</button><div class="det"><div class="foto"><img src="${p.img}" alt="${esc(p.nome)}"></div><div class="txt"><div class="cat">${esc(p.cat)}</div><h2>${esc(p.nome)}</h2><div class="cod">Código ${p.cod}</div><div class="preco"><small>R$</small>${brl(p.preco)}</div>${p.desc?`<p>${esc(p.desc)}</p>`:""}<a class="btn" target="_blank" rel="noopener" href="${zapItem(p)}">Pedir no WhatsApp</a><div class="dois"><button class="btn sec${ped[cod]?" tem":""}" data-add="${cod}" type="button">${ped[cod]?`✓ No pedido (${ped[cod]})`:"+ Adicionar"}</button><button class="btn sec" data-share="${cod}" type="button">Compartilhar</button></div>${sp.length?`<div class="tit">Ficha técnica</div><table class="ficha"><tbody>${sp.map(([k,v])=>`<tr><th scope="row">${esc(k)}</th><td>${esc(v)}</td></tr>`).join("")}</tbody></table>`:`<p class="aviso">Ficha técnica em atualização. Chame no WhatsApp que passamos todos os detalhes.</p>`}<p class="aviso">Confirme cor, voltagem e disponibilidade pelo WhatsApp antes de fechar o pedido.</p></div></div>${rel.length?`<div class="rel"><div class="tit">Veja também</div><div class="linha">${rel.map(r=>`<button data-p="${r.cod}" type="button"><img loading="lazy" src="${r.img}" alt=""><span>${esc(r.nome)}</span><b>R$ ${brl(r.preco)}</b></button>`).join("")}</div></div>`:""}`,p.nome);
+  history.replaceState(null,"","#"+cod);
+}
+function pedido(){
+  const it=Object.entries(ped);
+  if(!it.length){fecha();return}
+  const tot=it.reduce((a,[c,q])=>a+porCod[c].preco*q,0);
+  const msg="Olá! Quero fazer este pedido pelo catálogo:\n\n"+it.map(([c,q])=>`${q}x *${porCod[c].nome}* (cód. ${c}) – R$ ${brl(porCod[c].preco*q)}`).join("\n")+`\n\n*Total estimado: R$ ${brl(tot)}*`;
+  abre(`<button class="fecha" data-fecha type="button" aria-label="Fechar">✕</button><div class="ped"><h2>Meu pedido</h2>${it.map(([c,q])=>`<div class="item"><img src="${porCod[c].img}" alt=""><div><div class="n">${esc(porCod[c].nome)}</div><small>R$ ${brl(porCod[c].preco*q)}</small></div><div class="qt"><button data-q="${c}" data-d="-1" type="button" aria-label="Diminuir">${q>1?"−":"🗑"}</button><span>${q}</span><button data-q="${c}" data-d="1" type="button" aria-label="Aumentar">+</button></div></div>`).join("")}<div class="total"><span>Total estimado</span><b>R$ ${brl(tot)}</b></div><a class="btn" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}">Enviar pedido no WhatsApp</a><p class="aviso" style="margin-top:10px">Valores e disponibilidade são confirmados pelo WhatsApp. Nada é cobrado por aqui.</p></div>`,"Meu pedido");
+}
+async function compartilha(cod){
+  const p=porCod[cod],url=location.origin+location.pathname+"#"+cod,t=`${p.nome} – R$ ${brl(p.preco)}`;
+  try{if(navigator.share){await navigator.share({title:t,url});return}await navigator.clipboard.writeText(t+"\n"+url);aviso("Link copiado")}catch(e){if(e.name!=="AbortError")aviso("Não foi possível compartilhar")}
+}
+document.addEventListener("click",e=>{
+  const a=e.target.closest("[data-fav],[data-add],[data-share],[data-q],[data-fecha],[data-p]");
+  if(!a){if(e.target===$("fundo"))fecha();return}
+  const d=a.dataset;
+  if("fav" in d)favorita(d.fav);
+  else if("add" in d)adiciona(d.add);
+  else if("share" in d)compartilha(d.share);
+  else if("q" in d){ped[d.q]=(ped[d.q]||0)+ +d.d;if(ped[d.q]<=0)delete ped[d.q];resumo();botoes(d.q);pedido()}
+  else if("fecha" in d)fecha();
+  else if("p" in d)detalhe(d.p);
+});
+$("cats").onclick=e=>{const b=e.target.closest(".chip");if(b){cat=b.dataset.c;mudou();topo()}};
+$("faixas").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;const d=b.dataset;
+  if(d.e==="fav")soFav=!soFav;else if(d.e==="novo")soNovo=!soNovo;else faixa=faixa===+d.f?-1:+d.f;mudou();topo()};
+function topo(){const y=$("q").closest(".barra").offsetTop;if(scrollY>y)scrollTo({top:y})}
+let tq;$("q").oninput=()=>{clearTimeout(tq);tq=setTimeout(render,140)};
+$("ord").onchange=()=>{render();topo()};
+$("limpa").onclick=()=>{$("q").value="";render();$("q").focus()};
+$("zerar").onclick=()=>{$("q").value="";cat="Todos";faixa=-1;soFav=soNovo=false;mudou()};
+$("abrePed").onclick=pedido;
+$("sobe").onclick=()=>scrollTo({top:0});
+addEventListener("scroll",()=>{$("sobe").hidden=scrollY<700},{passive:true});
+addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("fundo").hidden)fecha()});
+addEventListener("hashchange",()=>{const c=location.hash.slice(1);if(porCod[c])detalhe(c)});
+new IntersectionObserver(x=>{if(x[0].isIntersecting)mais()},{rootMargin:"700px"}).observe($("mais"));
+chips();render();resumo();
+{const c=location.hash.slice(1);if(porCod[c])detalhe(c)}
 </script>
 </body>
 </html>
