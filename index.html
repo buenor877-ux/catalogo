@@ -6,6 +6,19 @@
 <title>Catálogo Bueno Tec</title>
 <meta name="description" content="Catálogo de produtos da Bueno Tec – Artigos eletrônicos e gerais. Frete grátis. Peça pelo WhatsApp.">
 <meta name="theme-color" content="#07090c">
+<link rel="canonical" href="https://buenor877-ux.github.io/catalogo/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Bueno Tec">
+<meta property="og:title" content="Catálogo Bueno Tec – Mais de 200 produtos">
+<meta property="og:description" content="Frete grátis, Pix e cartão em até 12x. Escolha o seu e peça pelo WhatsApp.">
+<meta property="og:url" content="https://buenor877-ux.github.io/catalogo/">
+<meta property="og:image" content="https://buenor877-ux.github.io/catalogo/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Logo da Bueno Tec e fotos de produtos do catálogo">
+<meta name="twitter:card" content="summary_large_image">
 <style>
 :root{--tq:#1fc4cf;--tq2:#0e8f99;--bg:#07090c;--bg2:#0d1319;--card:#10181f;--bd:#1b3a42;--tx:#e8eef0;--mut:#9fb0b5;--ink:#031317}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -241,7 +254,7 @@ function pedido(){
 }
 async function compartilha(cod){
   const p=porCod[cod],url=location.origin+location.pathname+"#"+cod,t=`${p.nome} – R$ ${brl(p.preco)}`;
-  try{if(navigator.share){await navigator.share({title:t,url});return}await navigator.clipboard.writeText(t+"\n"+url);aviso("Link copiado")}catch(e){if(e.name!=="AbortError")aviso("Não foi possível compartilhar")}
+  try{if(navigator.share){await navigator.share({title:t,text:t,url});return}await navigator.clipboard.writeText(t+"\n"+url);aviso("Link copiado")}catch(e){if(e.name!=="AbortError")aviso("Não foi possível compartilhar")}
 }
 document.addEventListener("click",e=>{
   const a=e.target.closest("[data-fav],[data-add],[data-share],[data-q],[data-fecha],[data-p]");
